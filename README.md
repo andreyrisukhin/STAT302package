@@ -15,3 +15,13 @@ You can install the released version of STAT302package from GitHub using:
 ``` r
 devtools::install_github("andreyrisukhin/STAT302package")
 ```
+
+To view vignettes, run the following code:
+
+``` r
+library(STAT302package)
+# Use this to view the vignette in the Demo HTML help
+help(package = "STAT302package", help_type = "html")
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "STAT302package")
+```
