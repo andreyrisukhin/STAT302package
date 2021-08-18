@@ -21,3 +21,10 @@ Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 VignetteBuilder: knitr
+Imports: 
+    randomForest,
+    class,
+    magrittr,
+    tibble,
+    dplyr,
+    ggplot2
