@@ -7,7 +7,7 @@
 
 
 test_that("my_lm() and lm() return identical values for the same inputs", {
-  expect_equal(as.numeric(my_lm(mpg ~ hp + wt, data = mtcars, pp = 5)[1, 1]),
+  expect_equal(as.numeric(my_lm(mpg ~ hp + wt, data = mtcars)[1, 1]),
                as.numeric(lm(mpg ~ hp + wt, data = mtcars)$coefficients[1]))
 })
 
