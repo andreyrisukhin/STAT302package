@@ -6,7 +6,7 @@ my_t.test <- function(x, alternative, mu) {
   # Check that the input parameters are valid
   if(!is.numeric(x)) {
     # Return error for non-numeric input
-    stop("x must be numeric! l must be a single value!")
+    stop("x must be numeric!")
   }
   if(!(identical(alternative, "two.sided") || identical(alternative, "less") || identical(alternative, "greater"))) {
     # Return error for appropriate alternative input
