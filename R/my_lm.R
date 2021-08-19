@@ -5,6 +5,12 @@
 # This function works with the ~. notation
 my_lm <- function(formula, data) {
 
+  # Ensure that data is passed as a dataframe
+  if(!is.data.frame(data)) {
+    # Return error for non-dataframe input
+    stop("data must be a data.frame!")
+  }
+
   # Use model.matrix() to get model matrix X. It takes as input a formula and data.
   X <- stats::model.matrix(formula, data)
   # Use model.frame() to extract
