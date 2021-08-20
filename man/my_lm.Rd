@@ -25,3 +25,4 @@ my_lm(mpg ~ hp + wt, data = mtcars)
 }
 \keyword{linear}
 \keyword{model}
+\keyword{prediction}

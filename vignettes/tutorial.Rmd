@@ -24,8 +24,8 @@ library(STAT302package)
 Welcome to Andrey Risukhin's Stat 302 Package! With this package, users can:
 - Run t-tests for the lesser, greater, and two-sided alternate hypothesis using `my_t.test()` (note, this script is in the file labeled `my_t_test.R`)
 - Fit a linear (polynomial) model to data using `my_lm()`
-- `my_knn_cv`: a custom function to return knn predictions and evaluate its quality through cross validation.
-- `my_rf_cv`: A custom random forest prediction function that also returns cross validation error.
+- Use `my_knn_cv`: a custom function to return knn predictions and evaluate its quality through cross validation.
+- Use `my_rf_cv`: A custom random forest prediction function that also returns cross validation error.
 
 ### Installation
 
@@ -41,6 +41,14 @@ Then, run the following to use it in a given project:
 library(STAT302package)
 ```
 
-## Linear Model
-
 ## T Test
+
+```{r}
+data <- STAT302package::my_gapminder$lifeExp
+ah_not_60 <- my_t.test(data, "two.sided", 60)
+ah_less_60 <- my_t.test(data, "less", 60)
+ah_greater_60 <- my_t.test(data, "greater", 60)
+```
+The test for the alternate hypothesis being not equal to 60 returns a P-value of `r `ah_not_60$p_val`.
+
+## Linear Model
