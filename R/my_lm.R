@@ -1,8 +1,20 @@
-# my_lm: calculates estimate, standard error, t and P values for each coefficient
-# given a formula and data.
-# Input: a formula object, a data vector.
-# Output: a table.
-# This function works with the ~. notation
+#' Linear model
+#'
+#' This function fits a polynomial model to data, where the polynomial is defined
+#'   by the formula argument.
+#'
+#' @param formula The formula object which describes what polynomial to fit.
+#' @param data The data used to fit the polynomial. Expects a dataframe.
+#'
+#' @keywords linear model
+#'
+#' @return A table describing the estimate, standard error, t and P values for
+#'   each coefficient.
+#'
+#' @examples
+#' my_lm(mpg ~ hp + wt, data = mtcars)
+#'
+#' @export
 my_lm <- function(formula, data) {
 
   # Ensure that data is passed as a dataframe
