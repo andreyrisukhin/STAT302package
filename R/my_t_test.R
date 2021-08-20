@@ -1,7 +1,24 @@
-# my_t.test: Calculates P-value using t-distribution hypothesis test.
-# Input: a data vector, the alternative hypothesis type, and mean prediction.
-# Output: Returns a list of t-value, degrees of freedom, the alternative, and
-# the P-value.
+#' T-test
+#'
+#' This function calculates P-value using the t-distribution hypothesis test.
+#'
+#' @param x The numeric vector of data given to conduct the t-test. No default
+#'   value.
+#' @param alternative The alternative hypothesis, a string of either "two.sided",
+#'   "less", or "greater". Used to determine which t-test to conduct. No default
+#'   value.
+#' @param mu The predicted mean, a numeric value to calculate the test statistic.
+#'   No default value.
+#'
+#' @keywords test hypothesis inference
+#'
+#' @return A list of the t-value, the degrees of freedom, the alternative used,
+#'   and the P-value.
+#'
+#' @examples
+#' my_t.test(c(1, 2, 2), alternative = "less", 3)
+#'
+#' @export
 my_t.test <- function(x, alternative, mu) {
   # Check that the input parameters are valid
   if(!is.numeric(x)) {

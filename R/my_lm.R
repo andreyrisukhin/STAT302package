@@ -6,7 +6,7 @@
 #' @param formula The formula object which describes what polynomial to fit.
 #' @param data The data used to fit the polynomial. Expects a dataframe.
 #'
-#' @keywords linear model
+#' @keywords linear model prediction
 #'
 #' @return A table describing the estimate, standard error, t and P values for
 #'   each coefficient.
