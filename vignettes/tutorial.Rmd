@@ -69,11 +69,23 @@ Given an alpha of 0.05, we fail to reject the first and third null hypotheses, a
 ```{r}
 # Get the data
 gap_data <- STAT302package::my_gapminder#$lifeExp
-life_exp_data <- my_gapminder$lifeExp
-gdp_data <- my_gapminder$gdpPercap
-cont_data <- my_gapminder$continent
 # Fit with linear regression
+output <- my_lm(lifeExp ~ gdpPercap + continent, data = gap_data)
+output
+```
+Given this output, we conclude the following:
+
+- The gdpPercap coefficient has the lowest value ("Estimate") and standard error of any coefficients. Therefore, gdpPercap is a feature which does not vary much, and in which a small change strongly affects the model prediction (hence the small coefficient). 
+
+- The hypothesis test associated with the gdpPercap coefficient is a two-sided test, in which we reject the null hypothesis that this coefficient is zero because our P-value is much less than the threshold of 0.05. 
+
+Let us plot the actual and fitted values:
+
+```{r}
+# To get Actual vs. Fitted, you need to multiply X %*% beta. To get beta, use your estimates. To get X, use `model.matrix(FORMULA, DATA)`
+beta <- c(output[[1]], output[[2]], output[[3]], output[[4]], output[[5]], output[[6]])
+X <- model.matrix(lifeExp ~ gdpPercap + continent, data = gap_data)
+actual_v_fitted <- X %*% beta
 
 
 ```
-
