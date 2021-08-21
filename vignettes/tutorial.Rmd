@@ -22,9 +22,13 @@ library(STAT302package)
 ## Stat 302 Package
 
 Welcome to Andrey Risukhin's Stat 302 Package! With this package, users can:
+
 - Run t-tests for the lesser, greater, and two-sided alternate hypothesis using `my_t.test()` (note, this script is in the file labeled `my_t_test.R`)
+
 - Fit a linear (polynomial) model to data using `my_lm()`
+
 - Use `my_knn_cv`: a custom function to return knn predictions and evaluate its quality through cross validation.
+
 - Use `my_rf_cv`: A custom random forest prediction function that also returns cross validation error.
 
 ### Installation
@@ -44,11 +48,32 @@ library(STAT302package)
 ## T Test
 
 ```{r}
-data <- STAT302package::my_gapminder$lifeExp
-ah_not_60 <- my_t.test(data, "two.sided", 60)
-ah_less_60 <- my_t.test(data, "less", 60)
-ah_greater_60 <- my_t.test(data, "greater", 60)
+# Get the data
+gap_data <- STAT302package::my_gapminder#$lifeExp
+life_exp_data <- my_gapminder$lifeExp
+# Perform t-tests
+ah_not_60 <- my_t.test(life_exp_data, "two.sided", 60)
+ah_less_60 <- my_t.test(life_exp_data, "less", 60)
+ah_greater_60 <- my_t.test(life_exp_data, "greater", 60)
 ```
-The test for the alternate hypothesis being not equal to 60 returns a P-value of `r `ah_not_60$p_val`.
+The test for the alternate hypothesis being not equal to 60 returns a P-value of `r ah_not_60$p_val`.
+
+The test for the alternate hypothesis being less than 60 returns a P-value of `r ah_less_60$p_val`.
+
+The test for the alternate hypothesis being greater than 60 returns a P-value of `r ah_greater_60$p_val`.
+
+Given an alpha of 0.05, we fail to reject the first and third null hypotheses, and fail to conclude that the mean life expectancy is not equal to 60 or is greater than 60. We are able to reject the second null hypothesis, concluding that the mean life expectancy is less than 60. 
 
 ## Linear Model
+
+```{r}
+# Get the data
+gap_data <- STAT302package::my_gapminder#$lifeExp
+life_exp_data <- my_gapminder$lifeExp
+gdp_data <- my_gapminder$gdpPercap
+cont_data <- my_gapminder$continent
+# Fit with linear regression
+
+
+```
+
