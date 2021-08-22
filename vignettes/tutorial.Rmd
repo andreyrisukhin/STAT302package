@@ -85,7 +85,30 @@ Let us plot the actual and fitted values:
 # To get Actual vs. Fitted, you need to multiply X %*% beta. To get beta, use your estimates. To get X, use `model.matrix(FORMULA, DATA)`
 beta <- c(output[[1]], output[[2]], output[[3]], output[[4]], output[[5]], output[[6]])
 X <- model.matrix(lifeExp ~ gdpPercap + continent, data = gap_data)
-actual_v_fitted <- X %*% beta
+fitted <- X %*% beta
+actual <- gap_data$lifeExp
 
-
+act_vs_fit <- data.frame(actual, fitted, gap_data$continent)
+colnames(act_vs_fit) <- c("actual", "fitted", "continent")
 ```
+```{r, fig.width=7, fig.height=5}
+library(dplyr)
+library(ggplot2)
+
+# Plot actual vs fitted, colored by continent
+plot_actual <- ggplot2::ggplot(data = act_vs_fit, aes(x = fitted, y = actual, color = continent)) +
+  geom_point() +
+  labs(title = "Actual vs Predicted Life Expectancy",
+       x = "Life Expectancy From Fitted Model (years)", y = "True Life Expectancy (years)",
+       caption = "Figure 1. Scatterplot of predicted and actual life expectancy, colored by continent.") + 
+  theme_bw(base_size = 16) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"),
+        axis.text.x = element_text(angle = 0, hjust = 1, vjust = 1),
+        plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+plot_actual
+```
+The plot gives us insight into the differences between the ground truth for life expectancy, and the life expectancy predicted by the model. We see that for true life expectancy under 70, the model assigns a narrow and inaccurate life expectancy to each continent group. Once the true life expectancy supersedes roughly 70, the model becomes more accurate, increasing the predicted year with each increase in actual year (having a slope of 1). However, in these linear segments the model is only accurate for European and Oceanian life expectancy: it underpredicts by 5 to 10 years for life expectancy in the Americas, by 10 to 20 years in Asia, and never stops predicting 45 to 55 for African life expectancy. There are 8 Asian life expectancies the model seriously overpredicts, the most extreme by 45 years (true value of 60, predicted value of 105).
+
+This suggests a linear model is not complex enough to capture the true relationships within the data.
