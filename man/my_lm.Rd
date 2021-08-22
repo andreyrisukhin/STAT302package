@@ -23,6 +23,7 @@ by the formula argument.
 my_lm(mpg ~ hp + wt, data = mtcars)
 
 }
+\keyword{inference}
 \keyword{linear}
 \keyword{model}
 \keyword{prediction}
