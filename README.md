@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/andreyrisukhin/STAT302package/branch/master/graph/badge.svg?token=7LWGI0BSK9)](https://codecov.io/gh/andreyrisukhin/STAT302package)
 <!-- badges: end -->
 
-The goal of STAT302package is to ...
+The goal of STAT302package is to demonstrate how to setup a repository for an R package.
 
 ## Installation
 
