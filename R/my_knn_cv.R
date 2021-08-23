@@ -1,31 +1,53 @@
 #' my_knn_cv
 #'
-#' This function performs a k-Nearest Neighbors Cross-Validation in R.
-#' set.seed numeric input to make the sampling reproductive within same parameter.
+#' This function performs a k-Nearest Neighbors Cross-Validation in R
 #' @param train Input data frame to be validated
 #' @param cl true class value of the training data
 #' @param k_nn integer representing the number of neighbors
 #' @param k_cv integer representing the number of folds
-#'
 #' @keywords K-Nearest Neighbors Cross-Validation Function
 #'
-#' @return a list with objects, which has class:  ^Y_i for all observations,
-#'    & cv_err: a numeric with the cross-validation mis-classification error.
+#' @return a list with objects \code{output} .
 #'
 #' @examples
-#' data("my_penguins")
-#' my_penguins <- na.omit(my_penguins)
-#'
-#' my_knn_cv(train = my_penguins[, 3:6]
-#'                         , cl = my_penguins[, 1],  k_nn = 5, k_cv = 5)
-#' # my_penguins[,3:6] stands for columns #3 to #6 in the data-set:
-#' #   "bill_length_mm",
-#' #   "bill_depth_mm",
-#' #   "flipper_length_mm",
-#' #   "body_mass_g".
-#' # column 1 is species
+#' my_penguins<- na.omit(palmerpenguins::penguins) # bring the data in.
+#'  my_knn_cv(train = my_penguins[, 3:6]
+#'                         , cl = my_penguins$species,  k_nn = 5, k_cv = 5)
 #'
 #' @export
+
+# my_knn_cv: a custom function to predict output class using covariate
+#my_knn_cv <- function(train, cl, k_nn, k_cv) {
+
+#  set.seed(123) # make sure the sampling can be repeat within a same parameter
+#  fold <- sample(rep(1 : k_cv, length = nrow(train)))
+#  errors <- c()
+
+  # split the data
+#  for (i in 1 : k_cv) {
+
+#    train_df <- train[fold != i, ]
+#    validation_df  <-  train[fold == i, ]
+#    cl_train <- cl[fold != i]
+#    cl_validation <-  cl[fold == i]
+
+    # Make a prediction for this data-set
+#    predictions <- class::knn(train = train_df, cl = cl_train, test  = validation_df , k = k_nn)
+
+    # Assigned mis-classifications
+#    errors[i] <- sum(predictions != cl_validation) / length(cl_validation)
+#  }
+
+#  knnClass <- class::knn(train = train, cl = cl, test  = train, k = k_nn)
+#  cv_error <- mean(errors)
+
+  # store output as a list
+#  output <- list("class" = knnClass, "cv_err" = cv_error)
+
+  # return the output
+#  return(output)
+#}
+
 my_knn_cv <- function(train, cl, k_nn, k_cv) {
 
   set.seed(123) # make sure the sampling can be repeat within a same parameter

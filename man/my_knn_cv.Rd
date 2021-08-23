@@ -16,25 +16,15 @@ my_knn_cv(train, cl, k_nn, k_cv)
 \item{k_cv}{integer representing the number of folds}
 }
 \value{
-a list with objects, which has class:  ^Y_i for all observations,
-& cv_err: a numeric with the cross-validation mis-classification error.
+a list with objects \code{output} .
 }
 \description{
-This function performs a k-Nearest Neighbors Cross-Validation in R.
-set.seed numeric input to make the sampling reproductive within same parameter.
+This function performs a k-Nearest Neighbors Cross-Validation in R
 }
 \examples{
-data("my_penguins")
-my_penguins <- na.omit(my_penguins)
-
-my_knn_cv(train = my_penguins[, 3:6]
-                        , cl = my_penguins[, 1],  k_nn = 5, k_cv = 5)
-# my_penguins[,3:6] stands for columns #3 to #6 in the data-set:
-#   "bill_length_mm",
-#   "bill_depth_mm",
-#   "flipper_length_mm",
-#   "body_mass_g".
-# column 1 is species
+my_penguins<- na.omit(palmerpenguins::penguins) # bring the data in.
+ my_knn_cv(train = my_penguins[, 3:6]
+                        , cl = my_penguins$species,  k_nn = 5, k_cv = 5)
 
 }
 \keyword{Cross-Validation}
