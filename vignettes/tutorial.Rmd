@@ -112,3 +112,92 @@ plot_actual
 The plot gives us insight into the differences between the ground truth for life expectancy, and the life expectancy predicted by the model. We see that for true life expectancy under 70, the model assigns a narrow and inaccurate life expectancy to each continent group. Once the true life expectancy supersedes roughly 70, the model becomes more accurate, increasing the predicted year with each increase in actual year (having a slope of 1). However, in these linear segments the model is only accurate for European and Oceanian life expectancy: it underpredicts by 5 to 10 years for life expectancy in the Americas, by 10 to 20 years in Asia, and never stops predicting 45 to 55 for African life expectancy. There are 8 Asian life expectancies the model seriously overpredicts, the most extreme by 45 years (true value of 60, predicted value of 105).
 
 This suggests a linear model is not complex enough to capture the true relationships within the data.
+
+## my_knn_cv
+This function used Cross-validation and k-nearest neighbors algorithms
+
+```{r}
+# Remove NA in penguins dataset
+penguins_df <- na.omit(palmerpenguins::penguins)
+
+
+# Get the train and cl parameter from the data
+train <- penguins_df[, 3:6]
+cl <- penguins_df$species
+
+# Create a prediction list & error vector
+pred_class <- list()
+cv_err <- vector()
+
+#  Create a for loop  1:10 
+for (j in 1:10) {
+  temp <- my_knn_cv(train, cl, j, 5)
+  pred_class[[j]] <- temp[[1]]
+  cv_err[j] <- temp[[2]]
+}
+
+# Calculate the training error
+train_err <- vector()
+for (i in 1:10) {
+  train_err[i] <- sum(pred_class[[i]] != penguins_df$species) / 
+    length(pred_class[[i]])
+}
+
+# Create a table to hold the results
+compare_err <- cbind.data.frame(cv_err, train_err)
+compare_err
+```
+
+
+## my_rf_cv
+
+The function my_rf_cv can be used to predicts the lifeExp using k-fold Cross-validation and random forest algorithms.
+
+For k in a range of 2, 5, 10 and iterate each case 30 times.
+
+```{r}
+cv_error <- matrix(NA, nrow = 90, ncol = 2)
+row <- 1
+for(i in 1:30) {
+    cv_error[i, 1] <- 2
+    cv_error[i, 2] <- my_rf_cv(2)
+    cv_error[i + 30, 1] <- 5
+    cv_error[i + 30, 2] <- my_rf_cv(5)
+    cv_error[i + 60, 1] <- 10
+    cv_error[i + 60, 2] <- my_rf_cv(10)
+}
+cv_error
+```
+
+
+### Graph the result 
+```{r fig.height = 6, fig.width = 10}
+df <- data.frame("k" = cv_error[, 1], "mse" = cv_error[, 2])
+ggplot(df, aes(x = k, y = mse, group = k, fill = factor(k))) +
+  geom_boxplot() +
+  labs(title = "MSE of k-folds", x = "Number of k", y = "MSE", 
+       fill = "# of Folds") +
+  
+  theme_bw(base_size = 12) +
+  scale_x_continuous(breaks = c(2, 5, 10)) +
+  theme(plot.title = element_text(hjust = 0.8),
+        legend.title = element_text(hjust = 0.8, size = 12))
+```
+
+### Create a table to host the result 
+```{r}
+result_tbl <- df %>% 
+  group_by(k) %>%
+  summarise(mean = mean(mse), sd = sd(mse)) %>%
+  select(-k) %>%
+  as.matrix() %>%
+  as.table()
+
+
+rownames(result_tbl) <- c("k = 2", "k = 5", "k = 10")
+
+result_tbl
+```
+Based on the boxplot and table result above, As the k number increase,the mean and the median of mse increases while the the range of mse and the standard deviation decreases. 
+The more folds we  have, in conjunction with the increasing in  iterations of the data, it definitely help the model perform better.
+
