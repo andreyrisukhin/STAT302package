@@ -10,11 +10,10 @@
 #' @return a list with objects \code{output} .
 #'
 #' @examples
-#' my_penguins<- na.omit(palmerpenguins::penguins) # bring the data in.
-#'  my_knn_cv(train = my_penguins[, 3:6]
-#'                         , cl = my_penguins$species,  k_nn = 5, k_cv = 5)
 #'
-#' @export
+#'  my_knn_cv(train = na.omit(STAT302package::my_penguins)[, 3:6]
+#'                         , cl = na.omit(STAT302package::my_penguins)$species,  k_nn = 5, k_cv = 5)
+#'@export
 
 # my_knn_cv: a custom function to predict output class using covariate
 #my_knn_cv <- function(train, cl, k_nn, k_cv) {

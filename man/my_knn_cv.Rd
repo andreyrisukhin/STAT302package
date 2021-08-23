@@ -22,10 +22,9 @@ a list with objects \code{output} .
 This function performs a k-Nearest Neighbors Cross-Validation in R
 }
 \examples{
-my_penguins<- na.omit(palmerpenguins::penguins) # bring the data in.
- my_knn_cv(train = my_penguins[, 3:6]
-                        , cl = my_penguins$species,  k_nn = 5, k_cv = 5)
 
+ my_knn_cv(train = na.omit(STAT302package::my_penguins)[, 3:6]
+                        , cl = na.omit(STAT302package::my_penguins)$species,  k_nn = 5, k_cv = 5)
 }
 \keyword{Cross-Validation}
 \keyword{Function}

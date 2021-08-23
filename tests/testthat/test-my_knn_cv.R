@@ -1,4 +1,6 @@
-data("my_penguins")
+#data("my_penguins")
+
+STAT302package::my_penguins
 
 test_that("my_knn_cv works mathematically", {
   penguins_data <- na.omit(my_penguins)
