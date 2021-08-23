@@ -54,5 +54,6 @@ my_rf_cv <- function(k) {
     mse <- c(mse, mean((my_pred - test_df$body_mass_g)^2))
   }
   output <- mean(mse)
+  type <- typeof(output)
   return(output)
 }
